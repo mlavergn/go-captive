@@ -8,7 +8,7 @@
 
 .PHONY: test
 
-VERSION := 1.0.2
+VERSION := 1.0.3
 
 #
 # Env
@@ -29,13 +29,13 @@ lint:
 	~/go/bin/golint src
 
 build: clean
-	GOPATH=${GOPATH} go build -o captive
+	GOPATH=${GOPATH} go build -o captive captived
 
 run: build
 	./captive
 
 dist: clean
-	GOPATH=${GOPATH} GOARCH=${GOARCH} GOOS=${GOOS} GOMIPS=${GOMIPS} go build --ldflags "-s -w" -o captive
+	GOPATH=${GOPATH} GOARCH=${GOARCH} GOOS=${GOOS} GOMIPS=${GOMIPS} go build --ldflags "-s -w" -o captive captived
 
 deploy: dist
 	-ssh root@${ROUTER} "mount /dev/sda1 /mnt"
